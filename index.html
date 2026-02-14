@@ -126,13 +126,13 @@
     </div>
 
 <script>
-    function v() {
+function v() {
         const usuarioIngresado = document.getElementById('u').value.toLowerCase().trim();
         const contraIngresada = document.getElementById('p').value.trim();
-        
         const llave = "TCZyZjVPOC5TX286ZQ=="; 
         
         if (usuarioIngresado === "luis" && btoa(contraIngresada) === llave) {
+            sessionStorage.setItem("acceso_permitido", "si");
             window.location.href = "dashboard.html";
         } else {
             alert("contraseña incorrecta");
