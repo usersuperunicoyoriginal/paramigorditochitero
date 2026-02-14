@@ -286,11 +286,15 @@ h1 { font-size: 35px; }
 <button class="heart-btn" onclick="cerrar()">gracias mor eres la mejor</button>
 </div>
 <script>
+if (sessionStorage.getItem("acceso_permitido") !== "si") {
+    window.location.href = "index.html";
+}
+
 function generarRandom() {
-const chars = "0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
-let res = "";
-for(let i=0; i<15; i++) res += chars.charAt(Math.floor(Math.random() * chars.length));
-document.getElementById('nivel-amor').innerText = res;
+    const chars = "0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+    let res = "";
+    for(let i=0; i<15; i++) res += chars.charAt(Math.floor(Math.random() * chars.length));
+    document.getElementById('nivel-amor').innerText = res;
 }
 setInterval(generarRandom, 100);
 const fechaInicio = new Date("April 13, 2025 12:28:44").getTime();
