@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Amor ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=DynaPuff:wght@400..700&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
+        :root {
+            --fresa-fuerte: #ff4d6d;
+            --fresa-medio: #ff758f;
+            --fresa-pastel: #ffb3c1;
+            --crema: #fff0f3;
+            --blanco-puro: #ffffff;
+            --texto: #590d22;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Sour Gummy', sans-serif;
+            background: linear-gradient(135deg, var(--crema) 0%, #ffe5ec 100%);
+            display: flex;
+            height: 100vh;
+            color: var(--texto);
+            overflow: hidden;
+        }
+
+        /* SIDEBAR ESTILO SOFT */
+        .sidebar {
+            width: 240px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-right: 3px solid var(--fresa-pastel);
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+        }
+
+        h2 { 
+            font-family: 'Cherry Bomb One', cursive; 
+            font-size: 32px; 
+            color: var(--fresa-fuerte);
+            text-shadow: 2px 2px var(--blanco-puro);
+            text-align: center;
+        }
+
+        .menu-item {
+            font-family: 'Cherry Bomb One', cursive;
+            background: var(--blanco-puro);
+            border: 2px solid var(--fresa-pastel);
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 18px;
+            color: var(--fresa-medio);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 77, 109, 0.1);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-3px);
+            background: var(--fresa-fuerte);
+            color: white;
+            border-color: var(--fresa-fuerte);
+        }
+
+        /* MAIN CONTENT */
+        .main {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        h1 {
+            font-family: 'Cherry Bomb One', cursive;
+            font-size: 60px;
+            margin-top: 0;
+            background: linear-gradient(to right, var(--fresa-fuerte), var(--fresa-medio));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 3px solid var(--blanco-puro);
+            border-radius: 30px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(255, 117, 143, 0.15);
+        }
+
+        .card-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--fresa-medio);
+            font-weight: 900;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        #nivel-amor {
+            font-family: 'DynaPuff', cursive;
+            font-size: 24px;
+            color: var(--fresa-fuerte);
+            background: var(--crema);
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .distancia-val {
+            font-family: 'DynaPuff', cursive;
+            font-size: 38px;
+            color: var(--texto);
+            display: inline-block;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 3px dashed var(--fresa-pastel);
+        }
+
+        #reloj {
+            font-family: 'DynaPuff', cursive;
+            font-size: 24px;
+            color: var(--texto);
+        }
+
+        /* ESTADO DE BIENESTAR */
+        .check-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .btn-opt {
+            font-family: 'DynaPuff', cursive;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--fresa-pastel);
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.2s;
+        }
+
+        .active-s { 
+            background: var(--fresa-fuerte) !important; 
+            color: white !important; 
+            border-color: var(--fresa-fuerte) !important;
+            box-shadow: 0 0 10px var(--fresa-medio);
+        }
+        .active-n { 
+            background: var(--fresa-medio) !important; 
+            color: white !important;
+            border-color: var(--fresa-medio) !important;
+        }
+
+        .btn-enviar {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(to right, var(--fresa-fuerte), var(--fresa-medio));
+            color: white;
+            border: none;
+            border-radius: 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-family: 'Cherry Bomb One', cursive;
+            font-size: 22px;
+            box-shadow: 0 6px 15px rgba(255, 77, 109, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .btn-enviar:active { transform: scale(0.98); }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 40px;
+            padding: 40px;
+            z-index: 1000;
+            width: 85%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(89, 13, 34, 0.2);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>MENU</h2>
+        <div class="menu-item">cartitas ✉️</div>
+        <div class="menu-item">cupones 🎟️</div>
+        <div class="menu-item">lee esto ❤️</div>
+    </div>
+
+    <div class="main">
+        <h1>bienvenido amor ♡</h1>
+        
+        <div class="grid">
+            <div class="card">
+                <span class="card-label">Nivel de Amor</span>
+                <div id="nivel-amor"></div>
+            </div>
+
+            <div class="card" style="text-align:center">
+                <span class="card-label">Distancia</span>
+                <div class="distancia-val">4718km</div>
+            </div>
+
+            <div class="card">
+                <span class="card-label">Tiempo Juntos</span>
+                <div id="reloj"></div>
+            </div>
+
+            <div class="card" style="grid-row: span 2;">
+                <h3 style="text-align: center; margin-top: 0; font-family: 'Cherry Bomb One', cursive; font-size: 24px; color: var(--fresa-medio);">estado de bienestar</h3>
+                <div id="questions">
+                    <div class="check-row"><span>tomaste awita s/n</span><div style="display:flex; gap:8px"><div class="btn-opt" onclick="sel(1,1)">s</div><div class="btn-opt" onclick="sel(1,0)">n</div></div></div>
+                    <div class="check-row"><span>comiste algo s/n</span><div style="display:flex; gap:8px"><div class="btn-opt" onclick="sel(2,1)">s</div><div class="btn-opt" onclick="sel(2,0)">n</div></div></div>
+                    <div class="check-row"><span>dormiste rico anoche s/n</span><div style="display:flex; gap:8px"><div class="btn-opt" onclick="sel(3,1)">s</div><div class="btn-opt" onclick="sel(3,0)">n</div></div></div>
+                    <div class="check-row"><span>te sientes bien emocionalmente s/n</span><div style="display:flex; gap:8px"><div class="btn-opt" onclick="sel(4,1)">s</div><div class="btn-opt" onclick="sel(4,0)">n</div></div></div>
+                    <div class="check-row"><span>no te duele nada s/n</span><div style="display:flex; gap:8px"><div class="btn-opt" onclick="sel(5,1)">s</div><div class="btn-opt" onclick="sel(5,0)">n</div></div></div>
+                    <div class="check-row" style="color: var(--fresa-fuerte);"><span>eres mío s/s</span><div style="display:flex; gap:8px"><div class="btn-opt active-s">s</div></div></div>
+                </div>
+                <button class="btn-enviar" onclick="enviar()">ENVIAR ❤️</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="cerrar()"></div>
+    <div class="modal" id="modal">
+        <p id="texto-final" style="font-size: 18px; line-height: 1.6; font-family: 'Sour Gummy', sans-serif;"></p>
+        <button onclick="cerrar()" style="background: var(--fresa-medio); color:white; border:none; padding:12px 25px; border-radius:15px; cursor:pointer; font-family: 'Cherry Bomb One', cursive; margin-top: 20px;">cerrar</button>
+    </div>
+
+    <script>
+        function generarRandom() {
+            const chars = "0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+            let res = "";
+            for(let i=0; i<15; i++) res += chars.charAt(Math.floor(Math.random() * chars.length));
+            document.getElementById('nivel-amor').innerText = res;
+        }
+        setInterval(generarRandom, 100);
+
+        const fechaInicio = new Date("April 13, 2025 12:28:44").getTime(); 
+        function actualizarReloj() {
+            const ahora = new Date().getTime();
+            const diff = ahora - fechaInicio;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('reloj').innerText = d + "d " + h + "h " + m + "m " + s + "s";
+        }
+        setInterval(actualizarReloj, 1000);
+
+        let respuestas = {1:null, 2:null, 3:null, 4:null, 5:null};
+        function sel(q, v) {
+            respuestas[q] = v;
+            const row = document.querySelectorAll('.check-row')[q-1];
+            row.querySelectorAll('.btn-opt')[0].classList.toggle('active-s', v === 1);
+            row.querySelectorAll('.btn-opt')[1].classList.toggle('active-n', v === 0);
+        }
+
+        const mensajes = {
+            "1": "mooorr solo tomaste agua :,v eso significa que tienes sueñito, hambre, tas mal y te duele algo :,VV quisiera estar ahi para prepararte algo rico y arroparte y y darte muchitos besitos, pobecito mi bebee, ve a comer algo ni bien puedas mor, todo va a estar bien ti? te lo prometo, no te exijas mucho mi maxo hermoso ❤️",
+            "2": "tienes la pancita llena moor pero tas deshidratado, sin dormir bien, mal y con dolor, así es muy difícil trabajar mor, pofa ve a tomar un poco de awita por mí ti? y recuerda que siempre estoy pensando en ti mi amorcito, tiamuxito 🥺 y si te duele la cabecita intenta pensar en cosas positivas, si es de noche piensa que falta poquito para que llegues y puedas ir a tu camita, si es tempranito tonces piensa en cosas lindas como que vamos a comprar una cunita para nuestra primera hijita o o o o que dice su primera palabrita 🥺",
+            "3": "solo mimiste rico mor??? ve a tomar agua y a comer algo ahora, por lo menos toma algo de awita, estás sin gasolina mor, como tas triste piensa en mí mor, piensa en nuestro futuro ti? piensa que te abrazo muy fuerte y que te digo que estoy orgullosa de ti (porque lo estoy y demasiado) 🥺❤️",
+            "4": "que bueno que tes bien mooorr pero tienes que tomar awita y buscar que comer mor, ese cuerpito de maxo precioso necesita energia para trabajar muy bien todo el dia y ese cerebrito tuyo todo bonitito necesita glucosa para funcionar mejor, asi que ve y busca algo ti? y como no mimiste bien imagina que te acaricio la carita para que no se te cierren los ojos timiamor? y y no te sientas mal, no se que te este poniendo asi ahora pero quiero que sepas que te amo un montonazo y que realmente te quiero dar un abrazote bien fuerte para que se te pase todito el malestar 🥺",
+            "5": "qué bueno que no te duela nada mi amorcito, pero toma awita y come algo yaaaaaaaa, dormiste mal y estas todo decaido mor :,v pobeshito mi niñito tikitito bonito :,v ojala poder agarrar esa cabecita y ponerla en mi pecho para que te sientas seguro mor, piensa cositas bonitas ti? intenta relajarte, respira profundo, cierra los ojos un toque (no te me vayas a mimir en el trabajo) e imagina que te doy cosquillitas con mis besitos de aire en la pancita hasta que sonrias 🥺",
+            "12": "qué bueno que hayas comido y tomado awita mor, pero andas trabajando sin haber dormido bien, todo tristón y con dolor :,vV eres un guerrero moor, mi maxo hermoso, mi guardián, tionomiamor? pero no olvides respirar mor, imagina que te hago piojito para que te relajes y que te doy un abracito bien fuerte para que se te vaya la tristeza y para que olvides tu dolor de cabezota o por algún corte que te hayas hecho mi amor, ya falta poquito pa que descanses mi amorcito ❤️ tiamunmonton",
+            "13": "moor, pofa come algo rico por mi ti?? e imagina que te hago cosquillitas con mis labios en el cuello hasta que sonrias, no se que te este haciendo sentir mal ahora y la verdad me gustaria estar aqui para ti porque supongo que andas aqui porque me tuve que ir o no se, estoy 100% segura de que ahora mismo estoy pensando en ti, en tu carita pechocha, en tu corazoncito, en como estaras, en todo lo que eres porque sí, estoy obsesionada contigo y qué, lo eres todo para mí mor, te amo demasiado, así que respira ti? te amo muxazo mi amor ❤️",
+            "14": "qué bueno que ya hayas tomado awita y que andes bien mi amor, pero te falta comidita y has mimido mal mooorr, anda y busca algo para comer por mí timiamor? para que esa cabecita toda bonita pueda pensar mejor las cositas y para que no tes tan cansado, muaaaaaak, tiamuxito mi maxo hermoso ❤️",
+            "15": "ayy pobecito mi amorcito peciosoo, tomaste awita y no te duele nada pero tas mal :,v y y encima no dormiste bien y y tienes hambre, ve a comer algo ti? y y y recuerda que te amo muxazo mor, permitete estar triste pero no te hundas en tu tristeza ti mi amor? tranquilito, pspspsppspss, ya tranquilito mi vidita, ti? pshshhshshshshhh ya paso mi amor, tiamuxote",
+            "23": "comiste y dormiste rico mromromrmr pero tas todo deshidratado y encima sid :,V ve a tomar awita ahorita mor y dejame cuidarte desde aqui ti? se que quizas hayas acudido a esta pagina porque no ande ahi escribiendote o quizas porque estas viendo la pagina ahorita mismo OMGGG pero si ando en google chat anda y desahogate conmigo mor o al menos dime que estas mal asi puedo consolarte mormormomrormor pero si ese no es el caso tonces quiero que sepas que aunque esto sea algo que literalmente escribi el 14 de febrero y no se en que dia estes ahorita quiero que sepas que te amo demasiado y que para mi siempre siempre siempre seras el mejor y no se si estes decepcionado o enojado y sea algo que estaba fuera de tus manos pero sabes que cosa si se?? que tu puedes con todo mor, porque si puedes con esta loca entonces puedes con todo todo timiamor? tiamu"
+        };
+
+        function enviar() {
+            let codigo = "";
+            for(let i=1; i<=5; i++) if(respuestas[i] === 1) codigo += i;
+            const txt = mensajes[codigo] || "¡perfecto mi amor! así te quiero ver siempre, bien cuidadito y feliz... eres el mejor de todos y me haces la mujer más feliz de todas 🥺";
+            document.getElementById('texto-final').innerText = txt;
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function cerrar() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
