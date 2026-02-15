@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nuestro universo ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=DynaPuff:wght@400..700&display=swap');
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            height: 100vh;
+            font-family: 'DynaPuff', cursive;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/></svg>'), auto;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+        
+        .star:hover {
+            transform: scale(1.8);
+            background: #ff4d6d !important;
+            box-shadow: 0 0 25px #ff4d6d !important;
+        }
+
+        #titulo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: 'Cherry Bomb One', cursive;
+            font-size: 40px;
+            text-align: center;
+            pointer-events: none;
+            opacity: 0.8;
+            text-shadow: 0 0 20px #ff4d6d;
+            width: 100%;
+        }
+
+        /* El popup bonito */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 30px;
+            text-align: center;
+            border: 4px solid #ff4d6d;
+            box-shadow: 0 0 50px rgba(255, 77, 109, 0.5);
+            z-index: 1000;
+            max-width: 80%;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: translate(-50%, -50%) scale(0); }
+            to { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .popup p {
+            font-size: 20px;
+            color: #590d22;
+            margin: 0 0 20px 0;
+        }
+
+        .btn-cerrar {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 15px;
+            font-family: 'Cherry Bomb One', cursive;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .btn-volver {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-family: 'Cherry Bomb One', bold;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid white;
+            font-size: 14px;
+            z-index: 100;
+        }
+        
+        .btn-volver:hover {
+            background: white;
+            color: #1B2735;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="titulo">toca las estrellitas</div>
+    <a href="dashboard.html" class="btn-volver">VOLVER</a>
+
+    <div class="overlay" id="overlay" onclick="cerrarPopup()"></div>
+    
+    <div class="popup" id="popup">
+        <p id="mensaje-amor">eres mi todo</p>
+        <button class="btn-cerrar" onclick="cerrarPopup()">❤</button>
+    </div>
+
+    <script>
+        const razones = [
+            "te amo porque cuando el mundo te trata mal siempre vienes a mí para ser el niño que no puedes ser afuera",
+
+            "te amo porque eres un hombre de 19 años que ya sabe lo que es romperse la espalda por un futuro y eso me llena de muchísimo orgullo",
+
+            "te amo porque tienes esa manía de querer intentar responderme todito porque para ti nada de lo que yo diga es insignificante",
+
+            "te amo porque a veces me dejas ganar cuando peleamos por quién ama a más a quién",
+
+            "te amo porque tus manos tienen esa mezcla perfecta de fuerza para trabajar y esa delicadeza para algún día acariciarme",
+
+            "te amo porque siempre intentas hacerme reír cuando estoy de malas",
+
+            "te amo porque eres un macho que resuelve y no eres de dar excusas",
+
+            "te amo porque tu voz me hipnotiza y me vuelve completamente loca con todas sus vibraciones tan variadas y me hace sentir la niña más segura de mundo",
+
+            "te amo porque entiendes mis desapariciones cuando alguien de mi familia pasa cerca o cuando tengo mucho dilei",
+
+            "te amo porque tienes una disciplina que me intimida y me enamora mucho",
+
+            "te amo porque eres demasiado honesto",
+
+            "te amo porque me da mucha ternura cuando me escribes teniendo mucho mucho sueño y apenas puedo entender lo que quisiste decir",
+
+            "te amo porque cuando el mundo te trata mal siempre vienes a mí para ser el niño que no puedes ser afuera",
+
+            "te amo porque eres un hombre de 19 años que ya sabe lo que es romperse la espalda por un futuro y eso me llena de muchísimo orgullo",
+
+            "te amo porque tienes esa manía de querer intentar responderme todito porque para ti nada de lo que yo diga es insignificante",
+
+            "te amo porque a veces me dejas ganar cuando peleamos por quién ama a más a quién",
+
+            "te amo porque tus manos tienen esa mezcla perfecta de fuerza para trabajar y esa delicadeza para algún día acariciarme",
+
+            "te amo porque siempre intentas hacerme reír cuando estoy de malas",
+
+            "te amo porque eres un macho que resuelve y no eres de dar excusas",
+
+            "te amo porque tu voz me hipnotiza y me vuelve completamente loca con todas sus vibraciones tan variadas y me hace sentir la niña más segura de mundo",
+
+            "te amo porque entiendes mis desapariciones cuando alguien de mi familia pasa cerca o cuando tengo mucho dilei",
+
+            "te amo porque tienes una disciplina que me intimida y me enamora mucho",
+
+            "te amo porque eres demasiado honesto",
+
+            "te amo porque eres tan caliente que calientas hasta mi laptop",
+
+            "te amo porque me cuesta mucho pensar en razones por las que te amo ya que no tengo que tener una excusa para amarte porque te amo",
+
+            "te amo porque valoras mi inteligencia y no solo mi aspecto físico",
+
+            "te amo porque me dejaste más que claro que un hombre de verdad no es el que no siente, sino el que lo siente todo y aun así se queda",
+
+            "te amo porque eres el papá de mis óvulos",
+
+            "te amo porque la tienes grande",
+        ];
+
+  function crearEstrellas() {
+    const body = document.querySelector('body');
+    const colores = ['#ffffff', '#ffb3c1', '#ffe5ec', '#ffccd5', '#fff0f3'];
+
+    for (let i = 0; i < 80; i++) { 
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        const size = Math.random() * 6 + 6; 
+        
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const delay = Math.random() * 5;
+        const colorAzulada = colores[Math.floor(Math.random() * colores.length)];
+
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = x + '%';
+        star.style.top = y + '%';
+        star.style.backgroundColor = colorAzulada;
+        star.style.boxShadow = `0 0 ${size}px ${colorAzulada}`;
+        star.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite ${delay}s`;
+
+        star.onclick = function() {
+            mostrarRazon();
+            star.style.transform = "scale(2.5) rotate(45deg)";
+            setTimeout(() => star.style.transform = "scale(1)", 500);
+        };
+
+        body.appendChild(star);
+    }
+}
+
+        function mostrarRazon() {
+            const indice = Math.floor(Math.random() * razones.length);
+            document.getElementById('mensaje-amor').innerText = razones[indice];
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('titulo').style.opacity = '0';
+        }
+
+        function cerrarPopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('titulo').style.opacity = '0.8';
+        }
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes twinkle {
+                0%, 100% { opacity: 0.3; transform: scale(1); }
+                50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 15px white; }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        crearEstrellas();
+    </script>
+</body>
+</html>
